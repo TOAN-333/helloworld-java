@@ -9,6 +9,7 @@ on:
 # variables d'environnement
 env:
   DEPLOY_ENV: production
+  MAVEN_OPTS: "-Dmaven.repo.local=${{ github.workspace }}/.m2/repository"
   
 jobs:
   build:
@@ -22,5 +23,10 @@ jobs:
        with:
          java-version: '17'
          distribution: 'temurin'
+     - name: Cache
+       uses: actions/cache@v5.1.0
+       with:
+         path: ${{ github.workspace }}/.m2/repository
+         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
      - name: Build MAVEN sans tests
        run: mvn clean package -DskipTests
