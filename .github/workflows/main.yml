@@ -18,9 +18,9 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v6.1.0
      - name: JAVA SDK 17
-       uses: action/setup-java@v6.1.0
+       uses: actions/setup-java@v6.1.0
        with:
          java-version: '17'
          distribution: 'temurin'
      - name: Build MAVEN sans tests
-       run: mvn clean package -DskipTest
+       run: mvn clean package -DskipTests
