@@ -1,0 +1,27 @@
+name: 
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      
+# variables d'environnement
+env:
+  DEPLOY_ENV: production
+  
+jobs:
+  build:
+    name: Build et cache de dependance
+    runs-on: ubuntu-24.04
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v6.1.0
+     - name: JAVA SDK 17
+       uses: action/setup-java@v6.2.0
+       with:
+         java-version: '17'
+         java-version-file: # optionnel
+         distribution: 'temurin'
+     - name: Build MAVEN sans tests
+       run: mvn clean package -DskipTest
